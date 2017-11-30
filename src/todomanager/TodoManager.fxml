@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="todomanager.TodoManagerController">
@@ -38,14 +42,22 @@
          <left>
             <AnchorPane prefHeight="451.0" prefWidth="261.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button disable="true" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" text="To-do list" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Button>
-                  <Button layoutX="185.0" layoutY="424.0" mnemonicParsing="false" onAction="#onActionNewTodo" prefHeight="30.0" prefWidth="60.0" text="Save" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                  <ListView fx:id="todoList" layoutX="14.0" layoutY="87.0" onMouseClicked="#onActionSelection" prefHeight="451.0" prefWidth="261.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0" />
-                  <TextField fx:id="newTodo" layoutX="45.0" layoutY="391.0" prefHeight="30.0" promptText="New To-do list..." AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <VBox>
+                     <children>
+                        <Button disable="true" mnemonicParsing="false" prefHeight="29.0" prefWidth="247.0" text="To-do list">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <HBox>
+                           <children>
+                              <TextField fx:id="newTodo" prefHeight="30.0" prefWidth="188.0" promptText="New To-do list..." />
+                              <Button mnemonicParsing="false" onAction="#onActionNewTodo" prefHeight="30.0" prefWidth="60.0" text="Save" />
+                           </children>
+                        </HBox>
+                        <ListView fx:id="todoList" onMouseClicked="#onActionSelection" />
+                     </children>
+                  </VBox>
                </children>
             </AnchorPane>
          </left>
@@ -56,12 +68,24 @@
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
-                              <ListView fx:id="todoTaskOne" layoutX="41.0" layoutY="36.0" prefHeight="389.0" prefWidth="265.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <ScrollPane layoutX="33.0" layoutY="48.0" prefHeight="397.0" prefWidth="265.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <content>
+                                    <VBox fx:id="todoTaskOne" prefHeight="395.0" prefWidth="263.0">
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" top="5.0" />
+                                       </padding>
+                                    </VBox>
+                                 </content>
+                              </ScrollPane>
                            </children>
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
-                              <ListView fx:id="todoTaskTwo" layoutX="24.0" layoutY="64.0" prefHeight="389.0" prefWidth="264.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <ScrollPane layoutX="14.0" layoutY="50.0" prefHeight="397.0" prefWidth="264.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <content>
+                                    <VBox fx:id="todoTaskTwo" prefHeight="391.0" prefWidth="262.0" />
+                                 </content>
+                              </ScrollPane>
                            </children>
                         </AnchorPane>
                     </items>
