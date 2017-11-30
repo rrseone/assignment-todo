@@ -13,10 +13,10 @@ import java.util.ArrayList;
  */
 public class Todo {
     private String todoTitle;
-    private ArrayList<String> taskEnd;
     private ArrayList<String> taskRun;
+    private ArrayList<String> taskEnd;
 
-    public Todo(String todoTitle, ArrayList<String> taskEnd, ArrayList<String> taskRun) {
+    public Todo(String todoTitle, ArrayList<String> taskRun, ArrayList<String> taskEnd) {
         this.todoTitle = todoTitle;
         this.taskEnd = taskEnd;
         this.taskRun = taskRun;
