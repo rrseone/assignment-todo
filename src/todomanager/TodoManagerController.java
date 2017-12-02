@@ -46,10 +46,10 @@ public class TodoManagerController implements Initializable {
     ObservableList<String> todoArrayList;
     String selectedTitle;
     ArrayList<CheckBox> rt = new ArrayList<>();
+    ArrayList<CheckBox> et = new ArrayList<>();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            RandomAccessFile input = new RandomAccessFile("Todo.txt", "r");
+        try (RandomAccessFile input = new RandomAccessFile("Todo.txt", "r")) {
             while (true) {  
                 String title = input.readLine();
                 //System.out.println(title);
@@ -85,38 +85,28 @@ public class TodoManagerController implements Initializable {
             todoArrayList = FXCollections.observableArrayList(titleArray);
             todoList.setItems(todoArrayList);
             
-            //selectedRunTask = FXCollections.observableArrayList(allInfo.get(0).getTaskRun());
             ArrayList<String> srt = new ArrayList<>(allInfo.get(0).getTaskRun());
             for(String s: srt){
                 CheckBox c = new CheckBox(s);
                 rt.add(c);
-                
-                /*c.setOnAction(click -> {
-                System.out.println(c.getText());
-                todoTaskTwo.getChildren().add(c);
-                });*/
             }
             todoTaskOne.getChildren().addAll(rt);
+            
             ArrayList<String> set = new ArrayList<>(allInfo.get(0).getTaskRun());
             for(String s: set){
                 CheckBox c = new CheckBox(s);
                 c.setSelected(true);
-                todoTaskTwo.getChildren().add(c);
-                
-                c.setOnAction(click -> {
-                    System.out.println(c.getText());
-                    todoTaskOne.getChildren().add(c);
-                });
+                et.add(c);
             }
-            /*selectedEndTask = FXCollections.observableArrayList(allInfo.get(0).getTaskEnd());
-            todoTaskTwo.setItems(selectedEndTask);*/
+            todoTaskTwo.getChildren().addAll(et);
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(TodoManagerController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("File Not Found!");
         } catch (IOException ex) {
-            Logger.getLogger(TodoManagerController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Find some error!");
         }
         
-    }    
+    }
+    
 
     @FXML
     private void onActionNewTodo(ActionEvent event) {
@@ -127,6 +117,7 @@ public class TodoManagerController implements Initializable {
             output.writeBytes(todo + "\n#\n##\n###\n");
             todoArrayList.add(0, todo);
             todoList.setItems(todoArrayList);
+            allInfo.add(new Todo(todo, new ArrayList<>(), new ArrayList<>()));
             newTodo.setText("");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(TodoManagerController.class.getName()).log(Level.SEVERE, null, ex);
@@ -149,6 +140,24 @@ public class TodoManagerController implements Initializable {
                 }
             }
             output.writeBytes(task + "\n");
+            CheckBox c = new CheckBox(task);
+            todoTaskOne.getChildren().add(c);
+            for(Todo s: allInfo){
+                if(selectedTitle.equals(s.getTodoTitle())){
+                    ArrayList<String> d = new ArrayList<>();
+                    d.addAll(s.getTaskRun());
+                    d.add(task);
+                    todoTaskOne.getChildren().clear();
+                    for(String a: d){
+                        CheckBox l = new CheckBox(a);
+                        todoTaskOne.getChildren().add(l);
+                        l.setOnAction(click -> {
+                            System.out.println(l.getText());
+                            todoTaskTwo.getChildren().add(l);
+                        });
+                    }
+                }
+            }
             newTask.setText("");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(TodoManagerController.class.getName()).log(Level.SEVERE, null, ex);
@@ -170,29 +179,57 @@ public class TodoManagerController implements Initializable {
                     todoTaskOne.getChildren().add(c);
                     
                     c.setOnAction(click -> {
-                        System.out.println(c.getText());
-                        todoTaskTwo.getChildren().add(c);
+                    System.out.println(c.getText());
+                    todoTaskTwo.getChildren().add(c);
                     });
                 }
+                ArrayList<String> set = new ArrayList<>(s.getTaskEnd());
                 todoTaskTwo.getChildren().clear();
-                for(String d: srt){
+                for(String d: set){
                     CheckBox c = new CheckBox(d);
                     c.setSelected(true);
                     todoTaskTwo.getChildren().add(c);
                     
                     c.setOnAction(click -> {
-                        System.out.println(c.getText());
-                        todoTaskOne.getChildren().add(c);
+                    System.out.println(c.getText());
+                    todoTaskOne.getChildren().add(c);
                     });
                 }
-                /*selectedRunTask = FXCollections.observableArrayList(s.getTaskRun());
-                todoTaskOne.setItems(selectedRunTask);
-                selectedEndTask = FXCollections.observableArrayList(s.getTaskEnd());
-                todoTaskTwo.setItems(selectedEndTask);*/
                 break;
             }
         }
 
     }
+
+    /*@FXML
+    private void onActionTaskCompleted(MouseEvent event) {
+    ArrayList<CheckBox> prt = new ArrayList<>(rt);
+    for(CheckBox c: prt) {
+    c.setOnAction(click -> {
+    rt.remove(c);
+    et.add(c);
+    todoTaskOne.getChildren().clear();
+    todoTaskTwo.getChildren().clear();
+    todoTaskOne.getChildren().addAll(rt);
+    todoTaskTwo.getChildren().addAll(et);
+    });
+    }
+    }
+    
+    @FXML
+    private void onActionSendUncompleted(MouseEvent event) {
+    ArrayList<CheckBox> prt = new ArrayList<>(et);
+    for(CheckBox c: prt) {
+    c.setOnAction(click -> {
+    et.remove(c);
+    rt.add(c);
+    todoTaskTwo.getChildren().clear();
+    todoTaskOne.getChildren().clear();
+    todoTaskOne.getChildren().addAll(rt);
+    todoTaskTwo.getChildren().addAll(et);
+    });
+    }
+    }*/
+
     
 }

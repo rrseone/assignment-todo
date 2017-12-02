@@ -51,7 +51,7 @@
                         </Button>
                         <HBox>
                            <children>
-                              <TextField fx:id="newTodo" prefHeight="30.0" prefWidth="188.0" promptText="New To-do list..." />
+                              <TextField fx:id="newTodo" prefHeight="30.0" prefWidth="187.0" />
                               <Button mnemonicParsing="false" onAction="#onActionNewTodo" prefHeight="30.0" prefWidth="60.0" text="Save" />
                            </children>
                         </HBox>
@@ -83,7 +83,10 @@
                            <children>
                               <ScrollPane layoutX="14.0" layoutY="50.0" prefHeight="397.0" prefWidth="264.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <content>
-                                    <VBox fx:id="todoTaskTwo" prefHeight="391.0" prefWidth="262.0" />
+                                    <VBox fx:id="todoTaskTwo" prefHeight="391.0" prefWidth="262.0">
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" top="5.0" />
+                                       </padding></VBox>
                                  </content>
                               </ScrollPane>
                            </children>
