@@ -49,7 +49,7 @@ public class TodoManagerController implements Initializable {
     ArrayList<CheckBox> et = new ArrayList<>();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try (RandomAccessFile input = new RandomAccessFile("Todo.txt", "r")) {
+        try (RandomAccessFile input = new RandomAccessFile("Todo.txt", "rw")) {
             while (true) {  
                 String title = input.readLine();
                 //System.out.println(title);
@@ -75,7 +75,7 @@ public class TodoManagerController implements Initializable {
                     //System.out.println(line);
                     taskE.add(e);
                 }
-                allInfo.add(0, new Todo(title, taskR, taskE));
+                allInfo.add(new Todo(title, taskR, taskE));
             }
             for(Todo s: allInfo) {
                 titleArray.add(s.getTodoTitle());
@@ -92,7 +92,10 @@ public class TodoManagerController implements Initializable {
                 c.setOnAction(click -> {
                     rt.remove(c);
                     et.add(c);
+                    allInfo.get(0).removeTaskRun(s);
+                    allInfo.get(0).addTaskEnd(s);
                     taskRefresh();
+                    fileRewrite(allInfo);
                 });
             }
             
@@ -104,7 +107,10 @@ public class TodoManagerController implements Initializable {
                 c.setOnAction(click -> {
                     et.remove(c);
                     rt.add(c);
+                    allInfo.get(0).removeTaskEnd(s);
+                    allInfo.get(0).addTaskRun(s);
                     taskRefresh();
+                    fileRewrite(allInfo);
                 });
             }
             taskRefresh();
@@ -119,88 +125,66 @@ public class TodoManagerController implements Initializable {
 
     @FXML
     private void onActionNewTodo(ActionEvent event) {
-        try(RandomAccessFile output = new RandomAccessFile("Todo.txt", "rw")) {
-            String todo = newTodo.getText();
-            output.seek(output.length());
-            output.writeBytes(todo + "\n#\n##\n###\n");
-            todoArrayList.add(0, todo);
-            todoList.setItems(todoArrayList);
-            selectedTitle = todo;
-            allInfo.add(new Todo(todo, new ArrayList<>(), new ArrayList<>()));
-            newTodo.setText("");
-            rt.clear();
-            et.clear();
-            taskRefresh();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(TodoManagerController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(TodoManagerController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        String todo = newTodo.getText();
+        todoArrayList.add(todo);
+        todoList.setItems(todoArrayList);
+        selectedTitle = todo;
+        allInfo.add(new Todo(todo, new ArrayList<>(), new ArrayList<>()));
+        fileRewrite(allInfo);
+        newTodo.setText("");
+        rt.clear();
+        et.clear();
+        taskRefresh();
     }
 
     @FXML
     private void onActionNewTask(ActionEvent event) {
         String task = newTask.getText();
-        try (RandomAccessFile output = new RandomAccessFile("Todo.txt", "rw")) {
-            output.seek(0);
-            String t;
-            while(true) {
-                t = output.readLine();
-                if(t == null)
-                    break;
-                if(selectedTitle.equals(t) ) {
-                    output.readLine();
-                    output.writeBytes(task + "\n");
-                    break;
+            
+        for(Todo s: allInfo){
+            if(selectedTitle.equals(s.getTodoTitle())){
+                s.addTaskRun(task);
+                ArrayList<String> d = new ArrayList<>(s.getTaskRun());
+                ArrayList<String> y = new ArrayList<>(s.getTaskEnd());
+                rt.clear();
+                et.clear();
+                for(String a: d){
+                    CheckBox l = new CheckBox(a);
+                    rt.add(l);
+                    l.setOnAction(click -> {
+                        rt.remove(l);
+                        et.add(l);
+                        s.removeTaskRun(a);
+                        s.addTaskEnd(a);
+                        fileRewrite(allInfo);
+                        taskRefresh();
+                    });
                 }
-            }
-            for(Todo s: allInfo){
-                if(selectedTitle.equals(s.getTodoTitle())){
-                    ArrayList<String> d = new ArrayList<>();
-                    ArrayList<String> y = new ArrayList<>();
-                    s.addTaskRun(task);
-                    d.addAll(s.getTaskRun());
-                    y.addAll(s.getTaskEnd());
-                    rt.clear();
-                    et.clear();
-                    for(String a: d){
-                        CheckBox l = new CheckBox(a);
+                for(String a: y){
+                    CheckBox l = new CheckBox(a);
+                    l.setSelected(true);
+                    et.add(l);
+                    l.setOnAction(click -> {
+                        et.remove(l);
                         rt.add(l);
-                        l.setOnAction(click -> {
-                            rt.remove(l);
-                            s.removeTaskRun(l.getText());
-                            et.add(l);
-                            s.addTaskEnd(l.getText());
-                            taskRefresh();
-                        });
-                    }
-                    taskRefresh();
-                    for(String a: y){
-                        CheckBox l = new CheckBox(a);
-                        rt.add(l);
-                        l.setOnAction(click -> {
-                            et.remove(l);
-                            s.removeTaskEnd(l.getText());
-                            rt.add(l);
-                            s.addTaskRun(l.getText());
-                            taskRefresh();
-                        });
-                    }
-                    taskRefresh();
+                        s.removeTaskEnd(a);
+                        s.addTaskRun(a);
+                        fileRewrite(allInfo);
+                        taskRefresh();
+                    });
                 }
+                taskRefresh();
+                break;
             }
-            newTask.setText("");
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(TodoManagerController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(TodoManagerController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        newTask.setText("");
     }
 
     @FXML
     private void onActionSelection(MouseEvent event) {
         selectedTitle = todoList.getSelectionModel().getSelectedItems().toString();
         selectedTitle = selectedTitle.substring(1, selectedTitle.length() - 1);
+        System.out.println(selectedTitle);
         for (Todo s: allInfo) {
             if(selectedTitle.equals(s.getTodoTitle())) {
                 ArrayList<String> srt = new ArrayList<>(s.getTaskRun());
@@ -212,6 +196,9 @@ public class TodoManagerController implements Initializable {
                     c.setOnAction(click -> {
                         rt.remove(c);
                         et.add(c);
+                        s.removeTaskRun(d);
+                        s.addTaskEnd(d);
+                        fileRewrite(allInfo);
                         taskRefresh();
                     });
                 }
@@ -223,6 +210,9 @@ public class TodoManagerController implements Initializable {
                     c.setOnAction(click -> {
                         et.remove(c);
                         rt.add(c);
+                        s.removeTaskEnd(d);
+                        s.addTaskRun(d);
+                        fileRewrite(allInfo);
                         taskRefresh();
                     });
                 }
@@ -239,5 +229,23 @@ public class TodoManagerController implements Initializable {
         todoTaskTwo.getChildren().addAll(et);
         todoTaskOne.getChildren().addAll(rt);
     }
-    
+    public void fileRewrite(ArrayList<Todo> all) {
+        try(RandomAccessFile rewrite = new RandomAccessFile("Todo.txt", "rw")){
+            for (Todo info : all) {
+                rewrite.writeBytes(info.getTodoTitle() + "\n#\n");
+                for(String s: info.getTaskRun()) {
+                    rewrite.writeBytes(s + "\n");
+                }
+                rewrite.writeBytes("##\n");
+                for(String s: info.getTaskEnd()) {
+                    rewrite.writeBytes(s + "\n");
+                }
+                rewrite.writeBytes("###\n");
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TodoManagerController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(TodoManagerController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

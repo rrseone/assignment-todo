@@ -51,7 +51,7 @@
                         </Button>
                         <HBox>
                            <children>
-                              <TextField fx:id="newTodo" prefHeight="30.0" prefWidth="187.0" />
+                              <TextField fx:id="newTodo" prefHeight="30.0" prefWidth="187.0" promptText="Add new todo..." />
                               <Button mnemonicParsing="false" onAction="#onActionNewTodo" prefHeight="30.0" prefWidth="60.0" text="Save" />
                            </children>
                         </HBox>
