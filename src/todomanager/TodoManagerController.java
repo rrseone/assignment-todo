@@ -119,8 +119,7 @@ public class TodoManagerController implements Initializable {
 
     @FXML
     private void onActionNewTodo(ActionEvent event) {
-        try {
-            RandomAccessFile output = new RandomAccessFile("Todo.txt", "rw");
+        try(RandomAccessFile output = new RandomAccessFile("Todo.txt", "rw")) {
             String todo = newTodo.getText();
             output.seek(output.length());
             output.writeBytes(todo + "\n#\n##\n###\n");
@@ -143,17 +142,18 @@ public class TodoManagerController implements Initializable {
     private void onActionNewTask(ActionEvent event) {
         String task = newTask.getText();
         try (RandomAccessFile output = new RandomAccessFile("Todo.txt", "rw")) {
+            output.seek(0);
             String t;
             while(true) {
                 t = output.readLine();
-                if(selectedTitle.equals(t)) {
+                if(t == null)
+                    break;
+                if(selectedTitle.equals(t) ) {
                     output.readLine();
+                    output.writeBytes(task + "\n");
                     break;
                 }
             }
-            output.writeBytes(task + "\n");
-            /*CheckBox c = new CheckBox(task);
-            todoTaskOne.getChildren().add(c);*/
             for(Todo s: allInfo){
                 if(selectedTitle.equals(s.getTodoTitle())){
                     ArrayList<String> d = new ArrayList<>();
@@ -239,4 +239,5 @@ public class TodoManagerController implements Initializable {
         todoTaskTwo.getChildren().addAll(et);
         todoTaskOne.getChildren().addAll(rt);
     }
+    
 }
