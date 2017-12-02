@@ -33,11 +33,26 @@ public class Todo {
     public void setTaskRun(ArrayList<String> taskRun) {
         this.taskRun = taskRun;
     }
-
+    
+    public void addTaskRun(String t) {
+        this.taskRun.add(t);
+    }
+    
+    public void addTaskEnd(String t) {
+        this.taskEnd.add(t);
+    }
+    
+    public void removeTaskRun(String t) {
+        this.taskRun.remove(t);
+    }
+    
+    public void removeTaskEnd(String t) {
+        this.taskEnd.remove(t);
+    }
     public String getTodoTitle() {
         return todoTitle;
     }
-
+    
     public ArrayList<String> getTaskEnd() {
         return taskEnd;
     }
