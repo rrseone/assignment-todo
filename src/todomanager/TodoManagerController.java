@@ -177,6 +177,7 @@ public class TodoManagerController implements Initializable {
                 break;
             }
         }
+        fileRewrite(allInfo);
         newTask.setText("");
     }
 
@@ -184,7 +185,6 @@ public class TodoManagerController implements Initializable {
     private void onActionSelection(MouseEvent event) {
         selectedTitle = todoList.getSelectionModel().getSelectedItems().toString();
         selectedTitle = selectedTitle.substring(1, selectedTitle.length() - 1);
-        System.out.println(selectedTitle);
         for (Todo s: allInfo) {
             if(selectedTitle.equals(s.getTodoTitle())) {
                 ArrayList<String> srt = new ArrayList<>(s.getTaskRun());
