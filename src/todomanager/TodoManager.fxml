@@ -2,10 +2,12 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
@@ -23,17 +25,18 @@
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
+                    <MenuItem mnemonicParsing="false" onAction="#OnActionExit" text="Exit" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
+                        <MenuItem mnemonicParsing="false" onAction="#onActionEdit" text="Edit" />
+                    <MenuItem mnemonicParsing="false" onAction="#onActionDelete" text="Delete" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
+                    <MenuItem mnemonicParsing="false" onAction="#onActionAbout" text="About" />
                   </items>
                 </Menu>
               </menus>
@@ -52,7 +55,7 @@
                         <HBox>
                            <children>
                               <TextField fx:id="newTodo" prefHeight="30.0" prefWidth="187.0" promptText="Add new todo..." />
-                              <Button mnemonicParsing="false" onAction="#onActionNewTodo" prefHeight="30.0" prefWidth="60.0" text="Save" />
+                              <Button mnemonicParsing="false" onAction="#onActionNewTodo" prefHeight="30.0" prefWidth="60.0" text="Add" />
                            </children>
                         </HBox>
                         <ListView fx:id="todoList" onMouseClicked="#onActionSelection" />
@@ -99,12 +102,16 @@
                      </font>
                   </Button>
                   <TextField fx:id="newTask" layoutX="14.0" layoutY="424.0" prefHeight="30.0" promptText="New To-do task..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="60.0" />
-                  <Button layoutX="257.0" layoutY="424.0" mnemonicParsing="false" onAction="#onActionNewTask" prefHeight="30.0" prefWidth="60.0" text="Save" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Button layoutX="257.0" layoutY="424.0" mnemonicParsing="false" onAction="#onActionNewTask" prefHeight="30.0" prefWidth="60.0" text="Add" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                </children>
             </AnchorPane>
          </center>
          <bottom>
-            <AnchorPane prefHeight="20.0" prefWidth="800.0" BorderPane.alignment="CENTER" />
+            <AnchorPane prefHeight="20.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="setNotification" layoutX="1.0" layoutY="2.0" prefHeight="20.0" prefWidth="433.0" text="Notification" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <ProgressBar layoutX="383.0" prefHeight="20.0" prefWidth="368.0" progress="0.56" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children></AnchorPane>
          </bottom>
       </BorderPane>
    </children>

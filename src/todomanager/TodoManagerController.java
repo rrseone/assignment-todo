@@ -19,6 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -40,6 +41,8 @@ public class TodoManagerController implements Initializable {
     private VBox todoTaskTwo;
     @FXML
     private TextField newTask;
+    @FXML
+    private Label setNotification;
     
     ArrayList<String> titleArray = new ArrayList<>();
     ArrayList<Todo> allInfo = new ArrayList<>();
@@ -47,6 +50,7 @@ public class TodoManagerController implements Initializable {
     String selectedTitle;
     ArrayList<CheckBox> rt = new ArrayList<>();
     ArrayList<CheckBox> et = new ArrayList<>();
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try (RandomAccessFile input = new RandomAccessFile("Todo.txt", "rw")) {
@@ -135,6 +139,7 @@ public class TodoManagerController implements Initializable {
         rt.clear();
         et.clear();
         taskRefresh();
+        setNotification.setText("Saved new todo.");
     }
 
     @FXML
@@ -179,6 +184,7 @@ public class TodoManagerController implements Initializable {
         }
         fileRewrite(allInfo);
         newTask.setText("");
+        setNotification.setText("Saved new task.");
     }
 
     @FXML
@@ -247,5 +253,21 @@ public class TodoManagerController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(TodoManagerController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void OnActionExit(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionEdit(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionDelete(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionAbout(ActionEvent event) {
     }
 }
