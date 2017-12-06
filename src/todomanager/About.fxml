@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="todomanager.AboutController">
+   <children>
+      <TextArea disable="true" layoutX="14.0" layoutY="14.0" prefHeight="400.0" prefWidth="600.0" text="What is Lorem Ipsum?&#10;Lorem Ipsum is simply dummy text of the printing and typesetting industry. &#10;Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, &#10;when an unknown printer took a galley of type and scrambled it to make a type &#10;specimen book. It has survived not only five centuries, but also the leap into electronic &#10;typesetting, remaining essentially unchanged. It was popularised in the 1960s with the &#10;release of Letraset sheets containing Lorem Ipsum passages, and more recently with &#10;desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.&#10;&#10;Why do we use it?&#10;It is a long established fact that a reader will be distracted by the readable content of a&#10; page when looking at its layout. The point of using Lorem Ipsum is that it has a &#10;more-or-less normal distribution of letters, as opposed to using 'Content here, content &#10;here', making it look like readable English. Many desktop publishing packages and web &#10;page editors now use Lorem Ipsum as their default model text, and a search for 'lorem &#10;ipsum' will uncover many web sites still in their infancy. Various versions have evolved &#10;over the years, sometimes by accident, sometimes on purpose (injected humour and the&#10; like)." AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Button layoutX="524.0" layoutY="370.0" mnemonicParsing="false" onAction="#onActionAboutClose" prefHeight="30.0" text="Close" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+   </children>
+</AnchorPane>

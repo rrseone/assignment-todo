@@ -17,13 +17,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  *
@@ -257,6 +261,7 @@ public class TodoManagerController implements Initializable {
 
     @FXML
     private void OnActionExit(ActionEvent event) {
+        System.exit(0);
     }
 
     @FXML
@@ -265,9 +270,34 @@ public class TodoManagerController implements Initializable {
 
     @FXML
     private void onActionDelete(ActionEvent event) {
+        String delTodo = todoList.getSelectionModel().getSelectedItems().toString();
+        delTodo = delTodo.substring(1, delTodo.length() - 1);
+        if(!delTodo.isEmpty()) {
+            for(int i = 0; i < allInfo.size(); i++) {
+                if(delTodo.equals(allInfo.get(i).getTodoTitle())) {
+                    /*allInfo.remove(i);
+                    rt.clear();
+                    et.clear();
+                    taskRefresh();
+                    todoArrayList.remove(allInfo.get(i).getTodoTitle());
+                    todoList.setItems(todoArrayList);
+                    System.out.println(allInfo.get(i).getTodoTitle());
+                    fileRewrite(allInfo);*/
+                    System.out.println(allInfo.get(i).getTodoTitle());
+                    break;
+                }
+            }
+        } else {
+            System.out.println("Not Selected");
+        }
     }
 
     @FXML
-    private void onActionAbout(ActionEvent event) {
+    private void onActionAbout(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("About.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
     }
 }
