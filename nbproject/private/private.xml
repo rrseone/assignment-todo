@@ -2,14 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/home/rashid/NetBeansProjects/TodoManager/src/todomanager/TodoManager.java</file>
-            <file>file:/home/rashid/NetBeansProjects/TodoManager/src/todomanager/About.fxml</file>
-            <file>file:/home/rashid/NetBeansProjects/TodoManager/src/todomanager/Todo.java</file>
-            <file>file:/home/rashid/NetBeansProjects/TodoManager/src/todomanager/TodoManagerController.java</file>
-            <file>file:/home/rashid/NetBeansProjects/TodoManager/src/todomanager/login.fxml</file>
-            <file>file:/home/rashid/NetBeansProjects/TodoManager/src/todomanager/LoginController.java</file>
-            <file>file:/home/rashid/NetBeansProjects/TodoManager/src/todomanager/AboutController.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
