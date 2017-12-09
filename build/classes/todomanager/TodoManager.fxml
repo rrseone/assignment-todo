@@ -30,8 +30,8 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
                   <items>
-                        <MenuItem mnemonicParsing="false" onAction="#onActionEdit" text="Edit and Update" />
-                    <MenuItem mnemonicParsing="false" onAction="#onActionDelete" text="Delete" />
+                        <MenuItem disable="true" mnemonicParsing="false" onAction="#onActionEdit" text="Edit and Update" />
+                    <MenuItem disable="true" mnemonicParsing="false" onAction="#onActionDelete" text="Delete" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">

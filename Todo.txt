@@ -1,54 +1,16 @@
-Digital World
+Programming Contest.
 #
-BBBBBBBBBBBBBBBBBBBBB
-AAAAAAAAAAA
+Task Two.
+Task Three.
 ##
-llllllllllllllll
-Katar one
+Task One.
+Task Zero.
 ###
-Programming
+New Todo
 #
-DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
-Ki korbo
-##
+Task 3
+Task Three
 Task One
-lkjknjbhg
-Avabe dibo
-CCCCCCCCC
-###
-New Work
-#
-Task Two
 ##
-Task One
-###
-Khalid
-#
-Task Two
-task 1
-##
-###
-VVVVVVVVVVVVVV
-#
-New task
-###
-New Work
-#
-Task Two
-##
-Task One
-###
-Amar Sonar bangla
-#
-Task Two
-##
-Task One
-###
-One
-#
-Amar Sonar bangla
-#
-Task Two
-##
-Task One
+Task Two.
 ###
